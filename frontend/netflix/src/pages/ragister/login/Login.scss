@@ -1,0 +1,73 @@
+.Login {
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    position: relative;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%), url("https://assets.nflxext.com/ffe/siteui/vlv3/c31c3123-3df7-4359-8b8c-475bd2d9925d/3aac2646-dd73-480d-b9b8-fbf55b24aff8/DE-en-20231225-popsignuptwoweeks-perspective_alpha_website_large.jpg");
+    .top {
+        position: relative;
+        width: inherit;
+        margin: auto;
+        .wrapper {
+            padding: 20px 50px;
+            align-items: center;
+            justify-content: space-between;
+            display: flex;
+        }
+        .logo {
+            height: 40px;
+        }
+    }
+    .continer {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        align-items: center;
+        display: flex;
+        top: 0;
+        left: 0;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        form {
+            width: 300px;
+            height: 300px;
+            border-radius: 5px;
+            padding: 30px;
+            background-color: var(--main-color);
+            opacity: 0.88;
+            display: flex;
+            flex-direction: column;
+            //border: 0.1px solid light;
+            justify-content: space-around;
+            
+            input {
+                height: 40px;
+                border-radius: 5px;
+                background-color: gray;
+                color: white;
+                padding-left: 10px;
+                &::placeholder {
+                    color: lightgray;
+                }
+            }
+            button {
+                height: 40px;
+                background-color: red;
+                color: white;
+                border-radius: 5px;
+                border: none;
+                font-size: 18px;
+                font-weight: 500;
+                cursor: pointer;
+            }
+            span {
+                color: lightgrey;
+            }
+            b {
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+}

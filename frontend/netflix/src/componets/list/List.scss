@@ -1,0 +1,60 @@
+.list {
+    width: 100%;
+    margin-top: 10px;
+    transition-delay: 5s;
+    transition-duration: 10s;
+    bottom: 5px;
+    position: relative;
+    animation: slideFromBottomfeed 0.9s ease-in-out forwards;
+    z-index: 2;
+    .listTitle {
+        color: white;
+        font-weight: 500;
+        font-size: 20px;
+        margin-left: 50px;
+    }
+    .list-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+    }
+    .wrapper {
+        position: relative;
+        .sliderArrow {
+            width: 50px;
+            height: 100%;
+            background-color: rgb(25, 24, 24, 0.5);
+            color: white;
+            position: absolute;
+            z-index: 999;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            cursor: pointer;
+            &.left {
+                left: 0;
+            }
+            &.right {
+                right: 0;
+            }
+        }
+        .container {
+            margin-left: 50px;
+            display: flex;
+            width: max-content;
+            margin-top: 10px;
+            transform: translateX(0px);
+            transition: all 1s ease;
+        }
+    }
+    @keyframes slideFromBottomfeed {
+        from {
+            bottom: 300px;
+        }
+        to {
+            bottom: 100px;
+        }
+    }
+}

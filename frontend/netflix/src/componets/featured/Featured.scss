@@ -1,0 +1,117 @@
+    .featured {
+        height: 100%;
+        position: relative;
+        .category {
+            position: absolute;
+            top: 80px;
+            left: 50px;
+            font-size: 30px;
+            font-weight: 500;
+            color: white;
+            display: flex;
+            align-items: center;
+            z-index: 1;
+            select {
+                cursor: pointer;
+                background-color: var(--main-color);
+                color: white;
+                border: 1px solid white;
+                margin-left: 20px;
+                padding: 5px;
+            }
+        }
+        .background {
+            position: absolute;
+            height: 90vh;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient( 90deg, rgba(23, 23, 23, 0.88) 10%, rgba(23, 23, 23, 0.65) 20%, rgba(23, 23, 23, 0.55) 25%, rgba(23, 23, 23, 0.50) 35%, rgba(23, 23, 23, 0.20) 40%, rgba(23, 23, 23, 0.0) 45%);
+        }
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            /* Adjust the height as needed */
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+            z-index: 2;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            right: 0;
+        }
+        .img1 {
+            opacity: 0.9;
+        }
+        .list-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 2;
+        }
+        .info {
+            width: 35%;
+            position: absolute;
+            left: 50px;
+            bottom: -100px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            animation: slideFromBottom 0.9s ease-in-out forwards;
+            img {
+                width: 400px;
+            }
+            .desc {
+                margin: 20px 0px;
+            }
+            .buttons {
+                display: flex;
+                button {
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    display: flex;
+                    align-items: center;
+                    justify-self: center;
+                    font-size: 18px;
+                    font-weight: 500;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    animation: slideFromBottom 0.5s ease-in-out forwards;
+                    animation-delay: 0.6s;
+                    &.play {
+                        background-color: white;
+                        color: var(--main-color);
+                        animation: slideFromBottom 0.5s ease-in-out forwards;
+                        animation-delay: 0.16s;
+                        ;
+                    }
+                    &.more {
+                        background-color: gray;
+                        color: white;
+                        font-weight: 500;
+                        animation: slideFromBottom 0.5s ease-in-out forwards;
+                        animation-delay: 0.37s;
+                        opacity: 0.75;
+                    }
+                    span {
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+        @keyframes slideFromBottom {
+            from {
+                bottom: -120px;
+            }
+            to {
+                bottom: 200px;
+            }
+        }
+    }
