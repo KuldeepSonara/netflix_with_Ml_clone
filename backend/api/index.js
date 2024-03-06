@@ -7,9 +7,12 @@ const userRoute = require("./routes/users");
 const movieRoute = require("./routes/movies");
 const listRoute = require("./routes/lists");
 const bodyParser = require("body-parser");
+const cors = require('cors');
+
+
 
 dotenv.config();
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 mongoose

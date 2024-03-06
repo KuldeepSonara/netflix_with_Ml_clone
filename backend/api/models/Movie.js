@@ -11,7 +11,8 @@ const MovieSchema = new mongoose.Schema({
     year: { type: String },
     limit: { type: String },
     genre: { type: String },
-    isSeries: { type: Boolean, default: false }
+    isSeries: { type: Boolean, default: false },
+    duration: { type: String }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Movie", MovieSchema);

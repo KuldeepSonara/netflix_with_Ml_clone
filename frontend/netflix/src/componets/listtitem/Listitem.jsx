@@ -1,5 +1,5 @@
 // Listitem.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   PlayArrow,
   Add,
@@ -7,13 +7,31 @@ import {
   ThumbDownOutlined,
 } from "@material-ui/icons";
 import "./Listitem.scss";
+import axios from "../../api";
+import { Link } from "react-router-dom";
 
-export default function Listitem({ index }) {
+export default function Listitem({ index, item }) {
   const [isHovered, setIsHovered] = useState(false);
-  const trailer =
-    "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761";
+  const [movie, setMovie] = useState({});
 
+  useEffect(()=>{
+    const getMovie = async ()=>{
+      try {
+        const res = await axios.get("/movie/find/"+item,{
+          headers: {
+            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YjkxMWYwMjM5MjAxMTBhNTA3NGJmNCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwOTczODE0NiwiZXhwIjoxNzEwMTcwMTQ2fQ.tgZOLGZVA1sepB0vM1pFaXMy7ef_pbNj_cssxznfpy0"
+          },
+        });
+        setMovie(res.data);
+      } catch (error) {
+        console.error("Error fetching movie:", error);
+      }
+    }
+    getMovie()
+  },[item])
+  
   return (
+  <Link to={{pathname:"/play", movie:movie}}>
     <div
       className={`listItem ${isHovered ? "hovered" : ""}`}
       onMouseEnter={() => setIsHovered(true)}
@@ -21,16 +39,16 @@ export default function Listitem({ index }) {
       
       style={{
         left: isHovered ? index * 225 - 50 + index * 2.5 : index * 200,
-
+        
       }}
-    >
+      >
       <img 
-        src="https://wallpaperaccess.com/full/10985587.jpg"
+        src={movie.img}
         alt=""
-      />
+        />
       {isHovered && (
         <>
-          <video src={trailer} autoPlay={true} loop />
+          <video src={movie.trailer} autoPlay={true} loop />
           <div className="itemInfo">
             <div className="icons">
               <PlayArrow className="icon" />
@@ -39,18 +57,18 @@ export default function Listitem({ index }) {
               <ThumbDownOutlined className="icon" />
             </div>
             <div className="itemInfoTop">
-              <span>1 hour 14 mins</span>
-              <span className="limit">+16</span>
-              <span>1999</span>
+              <span>{movie.duration}</span>
+              <span className="limit">{movie.limit}</span>
+              <span>{movie.year}</span>
             </div>
             <div className="desc">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Praesentium hic rem eveniet error possimus, neque ex doloribus.
+              {movie.desc}
             </div>
-            <div className="genre">Action</div>
+            <div className="genre">{movie.genre}</div>
           </div>
         </>
       )}
     </div>
+  </Link>
   );
 }

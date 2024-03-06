@@ -1,6 +1,5 @@
   // App.jsx
   import React, { useState, useEffect } from 'react';
-  import { BrowserRouter } from 'react-router-dom';
   import './App.scss';
   import Home from './pages/home/Home';
   import IntroPage from './pages/introPage/IntroPage'; 
@@ -8,11 +7,17 @@ import Play from './pages/play/Play';
 import Ragister from './pages/ragister/ragister1/ragister';
 import Ragister1 from './pages/ragister/Ragister';
 import Login from './pages/ragister/login/Login';
-import ImageEffect from './animation/imageffct/ImageEffect';
+import {
+  BrowserRouter,
+  Navigate ,
+  Route,
+  Routes,
+} from "react-router-dom";
+import { Movie } from '@material-ui/icons';
 
   function App() {
     const [screenLoading, setScreenLoading] = useState(true);
-
+    const user = true;
     useEffect(() => {
       setTimeout(() => {
         setScreenLoading(false);
@@ -21,19 +26,26 @@ import ImageEffect from './animation/imageffct/ImageEffect';
     const handleTransitionComplete = () => {
       setScreenLoading(false);
     };
-
-    
-    const imageUrl = "https://r4.wallpaperflare.com/wallpaper/355/966/399/wednesday-addams-wednesday-tv-series-movie-characters-jenna-ortega-emma-myers-hd-wallpaper-394f36bed076a736bd7e274d4e9a7b24.jpg";
-
     return (
       <>
         {screenLoading ? (
           <IntroPage onTransitionComplete={handleTransitionComplete}/>
         ) : (
           <BrowserRouter>
-            <>
-            <ImageEffect imageUrl={imageUrl} />
-            </>
+            <Routes>
+                <Route exact path="/" element={user ? <Home /> : <  Navigate to="Rgister" />} />
+                <Route exact path="/Rgister" element={!user ? <Ragister /> : <  Navigate to="/" />} />
+                <Route path="/login" element={!user ? <Login /> : <  Navigate to="/" />} />
+                {user &&
+                (
+                  <>
+                  <Route path="/movies" element={<Home type="movies"/>} />
+                  <Route path="/series" element={<Home type="series"/>} />
+                  <Route path="/play" element={<Play/>} />
+                  </> 
+                )
+                }
+            </Routes>
           </BrowserRouter>
         )}
       </>

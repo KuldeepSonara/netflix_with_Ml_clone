@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import * as THREE from 'three';
-import "./ImageEffect.scss";
+// import "./ImageEffect.scss";
 
 const ImageEffect = ({ imageUrl }) => {
   const imageContainerRef = useRef(null);

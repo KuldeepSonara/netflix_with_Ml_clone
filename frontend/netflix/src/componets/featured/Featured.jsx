@@ -1,16 +1,37 @@
-import React from 'react';
 import { InfoOutlined, PlayArrow } from '@material-ui/icons';
-import ImageEffect from '../../animation/imageffct/ImageEffect';
+import React, { useEffect, useRef, useState } from 'react';
 import './Featured.scss';
+import List from '../list/List';
+import * as THREE from 'three';
+import ImageEffect from '../../animation/imageffct/ImageEffect';
+import axios from '../../api';
 
-const Featured = ({ type, imageUrl }) => {
+const Featured = ({type }) => {
+  const [content, setContent] = useState({});
+
+  useEffect(()=>{
+    const getRandomContent = async()=>{
+      try {
+        const res = await axios.get(`movie/random?type=${type}`,{
+        headers: {
+          token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YjkxMWYwMjM5MjAxMTBhNTA3NGJmNCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwOTczODE0NiwiZXhwIjoxNzEwMTcwMTQ2fQ.tgZOLGZVA1sepB0vM1pFaXMy7ef_pbNj_cssxznfpy0"
+        }
+      },);
+        setContent(res.data[0])
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRandomContent();
+
+  },[type])
   return (
     <div className='featured'>
       {type && (
         <div className="category">
-          <span>{type === 'movie' ? "Movies" : "Series"}</span>
+          <span>{type === 'movies' ? "Movies" : "Series"}</span>
           <select name="genre" id="genre">
-            <option>Genre</option>
+          <option>Genre</option>
             <option value="adventure">Adventure</option>
             <option value="comedy">Comedy</option>
             <option value="crime">Crime</option>
@@ -29,31 +50,28 @@ const Featured = ({ type, imageUrl }) => {
       )}
       <div className="background"></div>
       <div className="overlay"></div>
-      
-      {/* Pass the imageUrl prop to the ImageEffect component */}
-      <ImageEffect imageUrl={imageUrl} />
-      {/* <img src="https://r4.wallpaperflare.com/wallpaper/355/966/399/wednesday-addams-wednesday-tv-series-movie-characters-jenna-ortega-emma-myers-hd-wallpaper-394f36bed076a736bd7e274d4e9a7b24.jpg
-        " className='img1' alt="" /> */}
-      <div className="layerinfo-1">
-        <div className="info">
-          <img src="https://logos-world.net/wp-content/uploads/2022/12/Logo-Wednesday.png" alt="" />
-          <span className="desc">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta, tempora? Quam reprehenderit consequuntur sequi impedit aut. Ea porro esse nesciunt vitae laborum magni explicabo quae soluta officiis beatae, sit ut.
-          </span>
-          <div className="buttons">
-            <button className="play">
-              <PlayArrow />
-              <span>Play</span>
-            </button>
-            <button className="more">
-              <InfoOutlined />
-              <span>Info</span>
-            </button>
+      {/* <ImageEffect imageUrl={imageUrl} /> */}
+        <img src={content.img} className='img1' alt="" />
+        <div className="layerinfo-1">
+          <div className="info">
+              <img src={content.imgtitle} alt="" />
+              <span className="desc">
+                {content.desc}
+              </span>
+              <div className="buttons">
+                  <button className="play">
+                    <PlayArrow/>
+                    <span>Play</span>
+                  </button>
+                  <button className="more">
+                    <InfoOutlined/>
+                    <span>Info</span>
+                  </button>
+              </div>
           </div>
         </div>
-      </div>
     </div>
   )
 }
 
-export default Featured;
+export default Featured

@@ -1,7 +1,40 @@
 import { ArrowBackIosOutlined } from '@material-ui/icons'
 import "./Play.scss"
-
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 const Play = () => {
+  const [showBackButton, setShowBackButton] = useState(true);
+
+  useEffect(() => {
+    let timeout;
+
+    const handleMouseEnter = () => {
+      setShowBackButton(true);
+      clearTimeout(timeout);
+    };
+
+    const handleMouseLeave = () => {
+      timeout = setTimeout(() => {
+        setShowBackButton(false);
+      }, 2000); // Adjust the duration in milliseconds (e.g., 2000 for 2 seconds)
+    };
+
+    // Attach event listeners for mouse enter and leave
+    const watchDiv = document.querySelector('.video'); // Assuming the mouse events are related to the video container
+    if (watchDiv) {
+      watchDiv.addEventListener('mouseenter', handleMouseEnter);
+      watchDiv.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    // Cleanup event listeners on component unmount
+    return () => {
+      if (watchDiv) {
+        watchDiv.removeEventListener('mouseenter', handleMouseEnter);
+        watchDiv.removeEventListener('mouseleave', handleMouseLeave);
+      }
+      clearTimeout(timeout);
+    };
+  }, []);   
   return (
     <div>
         
@@ -12,11 +45,15 @@ const Play = () => {
         </div>
         </div>
         <div className='watch'>
+        {showBackButton && 
+          <Link to="/">
         <div className="back">
-            <ArrowBackIosOutlined/>
+            <ArrowBackIosOutlined/>  
             Home
         </div>  
-        </div>
+          </Link>
+  }
+  </div>
     </div>
   )
 }
